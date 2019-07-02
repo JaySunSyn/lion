@@ -232,7 +232,10 @@ export const FormatMixin = dedupeMixin(
         // input into `.inputElement` with modelValue as input)
 
         if (this.__isHandlingUserInput && this.errorState) {
-          return this.inputElement ? this.value : undefined;
+          // We don't want to update our view value.
+          // By returning undefined, we know for sure that the existing view value
+          // will be kept at the time `.formattedValue` is synced to `.inputElement.value`
+          return undefined;
         }
         return this.formatter(this.modelValue, this.formatOptions);
       }
